@@ -1,0 +1,20 @@
+{
+  "name": "devops-greeting-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js app for DevOps project demonstration",
+  "main": "app.js",
+  "scripts": {
+    "build": "echo Building application...",
+    "start": "node app.js",
+    "test": "jest --coverage"
+  },
+  "author": "Abrin",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": []
+}
