@@ -1,0 +1,74 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: BuildJob
+    displayName: Build Job
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '20.x'
+      displayName: Install Node.js
+
+    - script: npm install
+      displayName: Install dependencies
+
+    - script: npm run build
+      displayName: Compile project
+
+    - script: npm test
+      displayName: Run unit tests and generate coverage
+
+- stage: Deliver
+  displayName: Deliver Stage
+  dependsOn: Build
+  jobs:
+  - job: DeliverJob
+    displayName: Deliver Job
+    steps:
+    - script: echo "Releasing application artifact"
+      displayName: Release artifact
+
+- stage: Deploy_Dev
+  displayName: Deploy to Dev Env
+  dependsOn: Deliver
+  jobs:
+  - job: DeployDev
+    steps:
+    - script: |
+        echo "Mock deployment to Dev"
+        echo "Launching deployed app in Dev"
+      displayName: Mock Dev Deployment
+
+- stage: Deploy_QAT
+  displayName: Deploy to QAT Env
+  dependsOn: Deploy_Dev
+  jobs:
+  - job: DeployQAT
+    steps:
+    - script: echo "Mock deployment to QAT"
+      displayName: Mock QAT Deployment
+
+- stage: Deploy_Staging
+  displayName: Deploy to Staging Env
+  dependsOn: Deploy_QAT
+  jobs:
+  - job: DeployStaging
+    steps:
+    - script: echo "Mock deployment to Staging"
+      displayName: Mock Staging Deployment
+
+- stage: Deploy_Production
+  displayName: Deploy to Production Env
+  dependsOn: Deploy_Staging
+  jobs:
+  - job: DeployProduction
+    steps:
+    - script: echo "Mock deployment to Production"
+      displayName: Mock Production Deployment
