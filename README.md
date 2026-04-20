@@ -14,6 +14,7 @@ This is a simple Node.js project created from scratch to demonstrate:
 
 \- Build, Test, Deliver, and Deployment stages
 
+Updated farewell-message
 
 
 \## Run locally
